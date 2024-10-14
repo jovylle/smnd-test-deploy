@@ -1,17 +1,46 @@
 backend:
-    name: git-gateway
-    branch: main
+  name: git-gateway
+  # branch: main # Branch to update (optional; defaults to master)
+# This line should *not* be indented
+media_folder: "public/decap/images/uploads" # Media files will be stored in the repo under images/uploads
+public_folder: "/decap/images/uploads"
 
-media_folder: "public/images/uploads"
-public_folder: "/images/uploads"
+# Please run "npx netlify-cms-proxy-server" for local backend
+local_backend: true
 
 collections:
-    - name: "posts"
-      label: "Posts"
-      folder: "content"
-      create: true
-      slug: "{{slug}}"
-      fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Body", name: "body", widget: "markdown" }
-          - { label: "Date", name: "date", widget: "datetime" }
+  - name: "blog" # Used in routes, e.g., /admin/collections/blog
+    label: "Blog" # Used in the UI
+    folder: "content/post" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      - { label: "Layout", name: "layout", widget: "hidden", default: "blog" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Featured Image", name: "thumbnail", widget: "image", "required":false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "test1" # Used in routes, e.g., /admin/collections/test1
+    label: "Tests1" # Used in the UI
+    folder: "content/decap/posts/test" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      - { label: "Layout", name: "layout", widget: "hidden", default: "testss" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Featured Image", name: "thumbnail", widget: "image", "required":false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "projects" # Used in routes, e.g., /admin/collections/test1
+    label: "Projects" # Used in the UI
+    folder: "content/projects" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      - { label: "Layout", name: "layout", widget: "hidden", default: "testss" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Featured Image", name: "thumbnail", widget: "image", "required":false }
+      - { label: "Body", name: "body", widget: "markdown" }
